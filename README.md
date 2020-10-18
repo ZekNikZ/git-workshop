@@ -11,19 +11,19 @@ _Revised October 2020._
 <details>
 <summary>Table of Contents</summary>
 
-- [Motivation for `git`](#motivation-for-git)
-- [Key Terminology](#key-terminology)
-- [Setting up `git`](#setting-up-git)
-  - [Using the command-line](#using-the-command-line)
-    - [Installing for macOS](#installing-for-macos)
-    - [Installing for Windows](#installing-for-windows)
-    - [Intial setup](#intial-setup)
-  - [Using a `git` GUI](#using-a-git-gui)
-    - [Pick a GUI](#pick-a-gui)
-- [Creating a `git` repository](#creating-a-git-repository)
-  - [Command line](#command-line)
-  - [GUI (GitHub Desktop)](#gui-github-desktop)
-- [Our first commit](#our-first-commit)
+- [`git` Workshop](#git-workshop)
+  - [Table of Contents](#table-of-contents)
+  - [Motivation for `git`](#motivation-for-git)
+  - [Key Terminology](#key-terminology)
+  - [Setting up `git`](#setting-up-git)
+    - [Using the command-line](#using-the-command-line)
+      - [Installing for macOS](#installing-for-macos)
+      - [Installing for Windows](#installing-for-windows)
+      - [Intial setup](#intial-setup)
+    - [Using a `git` GUI](#using-a-git-gui)
+      - [Pick a GUI](#pick-a-gui)
+  - [Creating a `git` repository](#creating-a-git-repository)
+  - [Our first commit](#our-first-commit)
 
 </details>
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
@@ -102,8 +102,6 @@ I personally recommend either [GitHub Desktop](https://desktop.github.com/) or [
 
 [Back to Table of Contents](#table-of-contents)
 
-### Command line
-
 The command `git init` will initialize a `git` repository in the directory that you are in. Thus, if you want to initialize a project from scratch, first make a new directory and then run this command inside of it. If you are creating a repository from existing sources, just enter the folder and run `git init`.
 
 _Follow along!_
@@ -113,8 +111,6 @@ mkdir git-workshop-1
 cd git-workshop-1
 git init
 ```
-
-### GUI (GitHub Desktop)
 
 ## Our first commit
 
