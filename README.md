@@ -6,12 +6,8 @@ _Revised October 2020._
 
 ## Table of Contents
 
-1. A
-2. B
-3. C
-4. D
-5. E
-6. F
+<!-- START doctoc -->
+<!-- END doctoc -->
 
 ## Motivation for `git`
 
@@ -86,3 +82,9 @@ I personally recommend either [GitHub Desktop](https://desktop.github.com/) or [
 ## Creating a `git` repository
 
 [Back to Table of Contents](#table-of-contents)
+
+### Creating a new project from scratch
+
+
+
+### Creating from existing sources
