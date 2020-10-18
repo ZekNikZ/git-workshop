@@ -24,6 +24,7 @@ _Revised October 2020._
       - [Pick a GUI](#pick-a-gui)
   - [Creating a `git` repository](#creating-a-git-repository)
   - [Our first commit](#our-first-commit)
+  - [Getting information before and after committing](#getting-information-before-and-after-committing)
 
 </details>
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
@@ -114,6 +115,8 @@ git init
 
 ## Our first commit
 
+[Back to Table of Contents](#table-of-contents)
+
 Before we can commit any files, we have to create a file! Let's start there.
 
 First, create a file called `hello-world.cpp`, seen below.
@@ -160,7 +163,7 @@ Changes to be committed:
 	new file:   hello-world.cpp
 ```
 
-`hello-world.cpp` has just moved from the **working directory** to the **staging area** or **index**. The staging area contains files that are about to be committed, in essense answering the question of "which file changes do I want to be recorded in the next snapshot?"
+`hello-world.cpp` has just moved from the **working directory** to the **staging area** or **index**. The staging area contains files that are about to be committed, in essense answering the question of "which file changes do I want to be recorded in the next snapshot?" Note that this command will _only move the current changes_ to the staging area. If you change the file again after `git add`ing it, you must run `git add` again.
 
 Next, run `git commit -m "Initial commit"`. This command takes all of the "staged" changes and bundles them together into a single snapshot called a "commit". Note that, behind the scenes, what is really happening is that the previous commit (snapshot) is being editing according to the changes specified in the commit. The `-m` flag in the command specifies the **commit message**, a short description of the changes that occurred. In this case, we said "Initial commit" since this was the first commit to our repository.
 
@@ -181,4 +184,6 @@ On branch master
 nothing to commit, working tree clean
 ```
 
-<!-- git add . in next section -->
+## Getting information before and after committing
+
+[Back to Table of Contents](#table-of-contents)
