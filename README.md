@@ -6,8 +6,24 @@ _Revised October 2020._
 
 ## Table of Contents
 
-<!-- START doctoc -->
-<!-- END doctoc -->
+<!-- START doctoc generated TOC please keep comment here to allow auto update -->
+<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
+**Table of Contents**
+
+- [Motivation for `git`](#motivation-for-git)
+- [Key Terminology](#key-terminology)
+- [Setting up `git`](#setting-up-git)
+  - [Using the command-line](#using-the-command-line)
+    - [Installing for macOS](#installing-for-macos)
+    - [Installing for Windows](#installing-for-windows)
+    - [Intial setup](#intial-setup)
+  - [Using a `git` GUI](#using-a-git-gui)
+    - [Pick a GUI](#pick-a-gui)
+- [Creating a `git` repository](#creating-a-git-repository)
+  - [Creating a new project from scratch](#creating-a-new-project-from-scratch)
+  - [Creating from existing sources](#creating-from-existing-sources)
+
+<!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
 ## Motivation for `git`
 
