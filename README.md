@@ -15,9 +15,13 @@ _Revised October 2020._
 
 ## Motivation for `git`
 
+[Back to Table of Contents](#table-of-contents)
+
 TODO: 
 
 ## Key Terminology
+
+[Back to Table of Contents](#table-of-contents)
 
 A **Version Control System (VCS)** is a software tool that helps record changes to file(s) by recording individual modifications to files in an organized and easily-available way. It contains _all_ of the edits and history of each file.
 
@@ -33,6 +37,8 @@ In `git`, there are four groups that a file (specifically, the changes to a file
 - **History (Repository)**: committed file changes that are "permanent".
 
 ## Setting up `git`
+
+[Back to Table of Contents](#table-of-contents)
 
 ### Using the command-line
 
@@ -79,3 +85,4 @@ I personally recommend either [GitHub Desktop](https://desktop.github.com/) or [
 
 ## Creating a `git` repository
 
+[Back to Table of Contents](#table-of-contents)
