@@ -25,6 +25,10 @@ _Revised October 2020._
   - [Creating a `git` repository](#creating-a-git-repository)
   - [Our first commit](#our-first-commit)
   - [Getting information before and after committing](#getting-information-before-and-after-committing)
+    - [`git diff`](#git-diff)
+    - [`git log`](#git-log)
+    - [`git show`](#git-show)
+  - [Test](#test)
 
 </details>
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
@@ -187,3 +191,143 @@ nothing to commit, working tree clean
 ## Getting information before and after committing
 
 [Back to Table of Contents](#table-of-contents)
+
+Before we move on, I want to point out a few commands that come in handy.
+
+First, create the file `goodbye-planet.cpp` as seen below:
+
+```c++
+#include <iostream>
+
+using namespace std;
+
+int main() {
+    cout << "Goodbye, planet!" << endl;
+
+    return 0;
+}
+```
+
+Then, edit `hello-world.cpp` to change the `"hello world"` string to be `"Hello, world!"`.
+
+### `git diff`
+
+`git diff` is a command that will compare the versions of files. In its basic form, it will compare the _working directory_ to your _staging area and committed changes_. If we run `git diff` now, we will see the following:
+
+```
+diff --git a/hello-world.cpp b/hello-world.cpp
+index 15b85dd..9155c1e 100644
+--- a/hello-world.cpp
++++ b/hello-world.cpp
+@@ -3,7 +3,7 @@
+ using namespace std;
+ 
+ int main() {
+-    cout << "hello world" << endl;
++    cout << "Hello, world!" << endl;
+ 
+     return 0;
+ }
+```
+
+First notice that there is no mention of `goodbye-planet.cpp` here. That is because `goodbye-planet.cpp` is **untracked**, so, correspondingly, there is no information to compare against.
+
+**`git` analyzes changes on a line-by-line basis**. This is seen by the fact that the line that we changed in `hello-world.cpp` is marked with a `-` and `+`. The `-` indicates the _previous_ version and the `+` indicates the _new_ version.
+
+### `git log`
+
+`git log` tells you about _all_ of the commits in your repository. Before we run this command, let's commit our changes using `git add .`. The `.` in this command refers to the _current directory_. Git then recursively searches through the file tree from this folder and looks for any files that have been changed.
+
+Use `git add .` and then commit your changes. Commit messages should be consise and descriptive. A good message for this change could be `Add 'Goodbye, Planet!' file and fixed punctuation`.
+
+After committing, run `git log` to see what you see:
+
+```
+commit 81687546714d7dcb7a1c7eba75ea2207f7126cdb (HEAD -> master)
+Author: Matthew McCaskill <mattrmccaskill@gmail.com>
+Date:   Sun Oct 18 13:21:01 2020 -0500
+
+    Add 'Goodbye, planet!' file and fixed punctuation
+
+commit d1fcb4137d79b92fdac864a7be1a3bcd93356275
+Author: Matthew McCaskill <mattrmccaskill@gmail.com>
+Date:   Sun Oct 18 12:35:04 2020 -0500
+
+    Initial commit
+```
+
+Here we see each commit in _reverse chronological order_. We can also see the full 40-character commit hash, the author of the commit (which should be your name and email), the date and time of the commit, and the commit message.
+
+### `git show`
+
+`git show` can be used to find out more information about a commit.
+
+Running `git show` by itself will show you information about the previous commit, as seen below. Basically `git show` shows us _both_ the `git log` information _and_ the `git diff` information. Cool, right!
+
+```
+commit 81687546714d7dcb7a1c7eba75ea2207f7126cdb (HEAD -> master)
+Author: Matthew McCaskill <mattrmccaskill@gmail.com>
+Date:   Sun Oct 18 13:21:01 2020 -0500
+
+    Add 'Goodbye, planet!' file and fixed punctuation
+
+diff --git a/goodbye-planet.cpp b/goodbye-planet.cpp
+new file mode 100644
+index 0000000..4036788
+--- /dev/null
++++ b/goodbye-planet.cpp
+@@ -0,0 +1,9 @@
++#include <iostream>
++
++using namespace std;
++
++int main() {
++    cout << "Goodbye, planet!" << endl;
++
++    return 0;
++}
+diff --git a/hello-world.cpp b/hello-world.cpp
+index 15b85dd..9155c1e 100644
+--- a/hello-world.cpp
++++ b/hello-world.cpp
+@@ -3,7 +3,7 @@
+ using namespace std;
+ 
+ int main() {
+-    cout << "hello world" << endl;
++    cout << "Hello, world!" << endl;
+ 
+     return 0;
+ }
+```
+
+In addition, you can use `git show [hash]` to see the information of a _specific_ commit. In my case, I run the command `git show d1fcb4137d79b92fdac864a7be1a3bcd93356275` (the commit hash of "Initial commit"):
+
+```
+commit d1fcb4137d79b92fdac864a7be1a3bcd93356275
+Author: Matthew McCaskill <mattrmccaskill@gmail.com>
+Date:   Sun Oct 18 12:35:04 2020 -0500
+
+    Initial commit
+
+diff --git a/hello-world.cpp b/hello-world.cpp
+new file mode 100644
+index 0000000..15b85dd
+--- /dev/null
++++ b/hello-world.cpp
+@@ -0,0 +1,9 @@
++#include <iostream>
++
++using namespace std;
++
++int main() {
++    cout << "hello world" << endl;
++
++    return 0;
++}
+```
+
+## Test
+
+[Back to Table of Contents](#table-of-contents)
+
