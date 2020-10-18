@@ -8,7 +8,8 @@ _Revised October 2020._
 
 <!-- START doctoc generated TOC please keep comment here to allow auto update -->
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
-**Table of Contents**
+<details>
+<summary>Table of Contents</summary>
 
 - [Motivation for `git`](#motivation-for-git)
 - [Key Terminology](#key-terminology)
@@ -23,6 +24,7 @@ _Revised October 2020._
   - [Creating a new project from scratch](#creating-a-new-project-from-scratch)
   - [Creating from existing sources](#creating-from-existing-sources)
 
+</details>
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
 ## Motivation for `git`
