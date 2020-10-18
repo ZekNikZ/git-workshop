@@ -34,6 +34,7 @@ _Revised October 2020._
     - [`git remote`](#git-remote)
     - [`git push`](#git-push)
   - [Collaboration using `git`](#collaboration-using-git)
+  - [Merging, Part I](#merging-part-i)
 
 </details>
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
@@ -263,6 +264,8 @@ Date:   Sun Oct 18 12:35:04 2020 -0500
 
 Here we see each commit in _reverse chronological order_. We can also see the full 40-character commit hash, the author of the commit (which should be your name and email), the date and time of the commit, and the commit message.
 
+Something else to notice is the `HEAD ->` on the first line. `HEAD` is a special name for the last commit on your current branch. In reality, it is a pointer to the latest commit on your currently-checked out branch (we will talk more about this later).
+
 ### `git show`
 
 `git show` can be used to find out more information about a commit.
@@ -406,4 +409,93 @@ Open up GitHub to see if your code did indeed sync:
 
 ## Collaboration using `git`
 
-By far, the most useful feature of `git` is its focus on collaboration. 
+[Back to Table of Contents](#table-of-contents)
+
+By far, the most useful feature of `git` is its focus on collaboration. There are four main commands of interest here: `git clone`, `git push`, `git fetch`, and `git pull`.
+
+- `git clone` sets up a new local repository which will track a specified remote.
+  - Note: this is functionally equivalent to the following:
+    - `git init`
+    - `git remote add origin [url]`
+    - `git pull`
+- As you already know, `git push` will push the commits in your local repository to the remote repository.
+- `git fetch` will grab information from the remote so that your local repository knows which of your branches are behind and which are ahead.
+- `git pull` will "pull" in the commits from the remote into your local repository.
+
+Let's see all of these in an example. We are going to create a second local repository tracking the same remote to simulate multiple users working on the same project.
+
+First, open a new terminal/command prompt instance _in the directory which you want to contain the new local repository_. In my case, opened a terminal at the Destkop.
+
+Next, run the following command to create a new local repository. You can again copy the URL from your repository page. The `[folder name]` refers to the name of the folder that you want to put your project into. In my case, I want to put it into a new folder called `git-workshop-2`.
+
+```sh
+git clone https://github.com/[GitHub username]/[repo name].git [folder name]
+```
+
+In my case, my command looked like this: `git clone https://github.com/ZekNikZ/git-workshop-demo.git git-workshop-2`.
+
+Open up `git-workshop-2/` and you should see the two files from before! If so, it worked! **I recommend keeping both folders open and both terminal windows open for the remainder of the workshop. I will refer to the repositories as "local repository 1" (original), "local repository 2" (new), and "remote repository" for the remainder of this workshop.**
+
+In **local repository 1**, create a new file called `test.txt`. Put whatever you want inside of it. Stage and commit this file. This is how I did it:
+
+```sh
+echo 'Hello, world!' > test.txt
+git add .
+git commit -m "collaboration test file"
+```
+
+Now, we will do a `git push`. This will push the change to the _remote repository_.
+
+Now, in **local repository 2**, run `git fetch`. You should see something similar to this:
+
+```
+remote: Enumerating objects: 4, done.
+remote: Counting objects: 100% (4/4), done.
+remote: Compressing objects: 100% (1/1), done.
+remote: Total 3 (delta 1), reused 3 (delta 1), pack-reused 0
+Unpacking objects: 100% (3/3), done.
+From https://github.com/ZekNikZ/git-workshop-demo
+   8168754..267dc33  master     -> origin/master
+```
+
+This indicates that `git` pulled the commit from local repository 1 into your local repository 2. In fact, if you run `git fetch` again, you will not have any output this time. This is because there were no more changes to fetch.
+
+Next, run `git pull`. This will pull in the new file `text.txt` to your local repository 2. Here is the expected output from `git pull`:
+
+```
+Updating 8168754..267dc33
+Fast-forward
+ test.txt | 1 +
+ 1 file changed, 1 insertion(+)
+ create mode 100644 test.txt
+```
+
+When you run `git pull`, it gives you a summary of what has changed. In this case, we can see that `test.txt` was created. If you run `git pull` again, you will see `Already up to date.`, indicating that there were no changes this time.
+
+Before we move on, let's run `git log` again. You should get output similar to the following:
+
+```
+commit 267dc33c259dcd168ef6a0a57ecb3c1e7e406c42 (HEAD -> master, origin/master, origin/HEAD)
+Author: Matthew McCaskill <mattrmccaskill@gmail.com>
+Date:   Sun Oct 18 14:39:23 2020 -0500
+
+    collaboration test file
+
+commit 81687546714d7dcb7a1c7eba75ea2207f7126cdb
+Author: Matthew McCaskill <mattrmccaskill@gmail.com>
+Date:   Sun Oct 18 13:21:01 2020 -0500
+
+    Add 'Goodbye, planet!' file and fixed punctuation
+
+commit d1fcb4137d79b92fdac864a7be1a3bcd93356275
+Author: Matthew McCaskill <mattrmccaskill@gmail.com>
+Date:   Sun Oct 18 12:35:04 2020 -0500
+
+    Initial commit
+```
+
+Look closely at the first commit there. We see that the latest commit is the current `HEAD` of the `master` branch, the `origin/master` branch (the `master` branch in the `origin` remote), and the `HEAD` of the `origin` remote. We'll talk more about this later, but keep this in mind for now.
+
+## Merging, Part I
+
+[Back to Table of Contents](#table-of-contents)
