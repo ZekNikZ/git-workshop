@@ -35,6 +35,8 @@ _Revised October 2020._
     - [`git push`](#git-push)
   - [Collaboration using `git`](#collaboration-using-git)
   - [Merging, Part I](#merging-part-i)
+    - [Simple Merge](#simple-merge)
+    - [Merge Conflict](#merge-conflict)
 
 </details>
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
@@ -499,3 +501,85 @@ Look closely at the first commit there. We see that the latest commit is the cur
 ## Merging, Part I
 
 [Back to Table of Contents](#table-of-contents)
+
+Now, let's see what happens when two individual users both make some changes at the same time.
+
+### Simple Merge
+
+In **local repository 1**, create the file `merge-A.txt`. Stage, commit, and push.
+
+In **local repository 2**, create the file `merge-B.txt`. Stage and commit.
+
+Now, still in local repository 2, try pushing (`git push`). It will complain with the following error message:
+
+```
+To https://github.com/ZekNikZ/git-workshop-demo.git
+ ! [rejected]        master -> master (fetch first)
+error: failed to push some refs to 'https://github.com/ZekNikZ/git-workshop-demo.git'
+hint: Updates were rejected because the remote contains work that you do
+hint: not have locally. This is usually caused by another repository pushing
+hint: to the same ref. You may want to first integrate the remote changes
+hint: (e.g., 'git pull ...') before pushing again.
+hint: See the 'Note about fast-forwards' in 'git push --help' for details.
+```
+
+Basically, `git` is complaining that another commit happened in the process of making our change and suggests to do a `git pull` before pushing again. In practice, it is highly recommended to _always_ pull before pushing for this exact reason.
+
+Do a `git pull` now and `git` will prompt you to **merge**. A merge takes the commits of one branch and applies them to another. In this case, we are merge the two sub-branches of `master` caused by us making separate commits. When the prompt opens, simply save the file `^X` in `nano` or `:wq` in `vim` to pull. Then you will be able to `git push`.
+
+Keep in mind that **merges are also commits**, so you will need to `git pull` in local repository 1.
+
+### Merge Conflict
+
+Now, edit `test.txt` in the following ways:
+
+- In **local repository 1**, change the first line to `foo` and the second line to `test`.
+- In **local repository 2**, change the first line to `bar` and the second line to `test`.
+
+Think about what we just did here. We modified the _same_ part of the file in two different ways. Go ahead and stage, `commit` and `push` the changes from local repository 1.
+
+Now, in **local repository 2**, stage and `commit` as before and try to `push`. You should get the same error as before. Remembering to `git pull` before `git push`ing, do a `git pull`.
+
+This time, you will get a message like the following:
+
+```
+Auto-merging test.txt
+CONFLICT (content): Merge conflict in test.txt
+Automatic merge failed; fix conflicts and then commit the result.
+```
+
+This message is saying that there was a merge conflict, meaning two separate branches modified the same line of a file in different ways. There are three steps to **resolving** a merge conflict:
+
+1. Open the file in question and resolve the conflict.
+2. Stage the change.
+3. Commit the merge.
+
+If you think about it, these three steps are obvious. If there is a conflict, we first need to resolve it, then, since we made a change, we need to stage and commit it. So, let's do it:
+
+First, open `test.txt` and look inside. You will see something like this:
+
+```
+<<<<<<< HEAD
+bar
+=======
+foo
+>>>>>>> 766ef9954a46d6d7ae1e91d0ab8c460bfba7a4d7
+test
+```
+
+Depending on your text editor, it may recognize that this is a merge conflict and help you out, like Visual Studio Code:
+
+![Merge Conflict](images/mergeconflict.png)
+
+But, let's try resolving it manually. Everything between `<<<<<<< HEAD` and `=======` is **your** change (i.e., the change that you did on your current sub-branch). Everything between `=======` and `>>>>>>> [hash]` is **their** change (i.e., the other change that conflicts with this one). The `[hash]` is the hash of the commit which caused the conflict.
+
+To manually resolve the change, simply keep what you want and remove the `<<<<<<< HEAD`, `=======`, and `>>>>>>> [hash]`. In this case, let's keep _their_ change. Leave your file like this:
+
+```
+foo
+test
+```
+
+Next, stage, commit, and push. Congradulations! You have resolved your first merge conflict!
+
+**Note that it is perfectly fine to keep _both_ or _neither_ of the sides of the merge conflict. Also, it is possible to have multiple conflicts in the same file, so be careful to check the whole file thoroughly.**
