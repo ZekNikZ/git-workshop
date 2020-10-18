@@ -11,19 +11,17 @@ _Revised October 2020._
 <details>
 <summary>Table of Contents</summary>
 
-- [`git` Workshop](#git-workshop)
-  - [Table of Contents](#table-of-contents)
-  - [Motivation for `git`](#motivation-for-git)
-  - [Key Terminology](#key-terminology)
-  - [Setting up `git`](#setting-up-git)
-    - [Using the command-line](#using-the-command-line)
-      - [Installing for macOS](#installing-for-macos)
-      - [Installing for Windows](#installing-for-windows)
-      - [Intial setup](#intial-setup)
-    - [Using a `git` GUI](#using-a-git-gui)
-      - [Pick a GUI](#pick-a-gui)
-  - [Creating a `git` repository](#creating-a-git-repository)
-  - [Our first commit](#our-first-commit)
+- [Motivation for `git`](#motivation-for-git)
+- [Key Terminology](#key-terminology)
+- [Setting up `git`](#setting-up-git)
+  - [Using the command-line](#using-the-command-line)
+    - [Installing for macOS](#installing-for-macos)
+    - [Installing for Windows](#installing-for-windows)
+    - [Intial setup](#intial-setup)
+  - [Using a `git` GUI](#using-a-git-gui)
+    - [Pick a GUI](#pick-a-gui)
+- [Creating a `git` repository](#creating-a-git-repository)
+- [Our first commit](#our-first-commit)
 
 </details>
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
