@@ -11,22 +11,25 @@ _Revised October 2020._
 <details>
 <summary>Table of Contents</summary>
 
-- [Motivation for `git`](#motivation-for-git)
-- [Key Terminology](#key-terminology)
-- [Setting up `git`](#setting-up-git)
-  - [Using the command-line](#using-the-command-line)
-    - [Installing for macOS](#installing-for-macos)
-    - [Installing for Windows](#installing-for-windows)
-    - [Intial setup](#intial-setup)
-  - [Using a `git` GUI](#using-a-git-gui)
-    - [Pick a GUI](#pick-a-gui)
-- [Creating a `git` repository](#creating-a-git-repository)
-- [Our first commit](#our-first-commit)
-- [Getting information before and after committing](#getting-information-before-and-after-committing)
-  - [`git diff`](#git-diff)
-  - [`git log`](#git-log)
-  - [`git show`](#git-show)
-- [Test](#test)
+- [`git` Workshop](#git-workshop)
+  - [Table of Contents](#table-of-contents)
+  - [Motivation for `git`](#motivation-for-git)
+  - [Key Terminology](#key-terminology)
+  - [Setting up `git`](#setting-up-git)
+    - [Using the command-line](#using-the-command-line)
+      - [Installing for macOS](#installing-for-macos)
+      - [Installing for Windows](#installing-for-windows)
+      - [Intial setup](#intial-setup)
+    - [Using a `git` GUI](#using-a-git-gui)
+      - [Pick a GUI](#pick-a-gui)
+  - [Creating a `git` repository](#creating-a-git-repository)
+  - [Our first commit](#our-first-commit)
+  - [Getting information before and after committing](#getting-information-before-and-after-committing)
+    - [`git diff`](#git-diff)
+    - [`git log`](#git-log)
+    - [`git show`](#git-show)
+  - [Pushing to a remote](#pushing-to-a-remote)
+    - [Creating a remote repository](#creating-a-remote-repository)
 
 </details>
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
@@ -325,7 +328,16 @@ index 0000000..15b85dd
 +}
 ```
 
-## Test
+## Pushing to a remote
 
 [Back to Table of Contents](#table-of-contents)
 
+Remote repositories are what make `git` a powerful collaborative tool. Before we continue, we need to create a remote repository.
+
+### Creating a remote repository
+
+**Make sure you have an account created on GitHub for this next step.**
+
+Create a new repository on GitHub by clicking the "+" button in the top-right corner.
+
+![New repo button](images/newrepo.png)
