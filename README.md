@@ -11,23 +11,29 @@ _Revised October 2020._
 <details>
 <summary>Table of Contents</summary>
 
-- [Motivation for `git`](#motivation-for-git)
-- [Key Terminology](#key-terminology)
-- [Setting up `git`](#setting-up-git)
-  - [Using the command-line](#using-the-command-line)
-    - [Installing for macOS](#installing-for-macos)
-    - [Installing for Windows](#installing-for-windows)
-    - [Intial setup](#intial-setup)
-  - [Using a `git` GUI](#using-a-git-gui)
-    - [Pick a GUI](#pick-a-gui)
-- [Creating a `git` repository](#creating-a-git-repository)
-- [Our first commit](#our-first-commit)
-- [Getting information before and after committing](#getting-information-before-and-after-committing)
-  - [`git diff`](#git-diff)
-  - [`git log`](#git-log)
-  - [`git show`](#git-show)
-- [Pushing to a remote](#pushing-to-a-remote)
-  - [Creating a remote repository](#creating-a-remote-repository)
+- [`git` Workshop](#git-workshop)
+  - [Table of Contents](#table-of-contents)
+  - [Motivation for `git`](#motivation-for-git)
+  - [Key Terminology](#key-terminology)
+  - [Setting up `git`](#setting-up-git)
+    - [Using the command-line](#using-the-command-line)
+      - [Installing for macOS](#installing-for-macos)
+      - [Installing for Windows](#installing-for-windows)
+      - [Intial setup](#intial-setup)
+    - [Using a `git` GUI](#using-a-git-gui)
+      - [Pick a GUI](#pick-a-gui)
+  - [Creating a `git` repository](#creating-a-git-repository)
+  - [Our first commit](#our-first-commit)
+  - [Getting information before and after committing](#getting-information-before-and-after-committing)
+    - [`git diff`](#git-diff)
+    - [`git log`](#git-log)
+    - [`git show`](#git-show)
+  - [Pushing to a remote](#pushing-to-a-remote)
+    - [Creating a remote repository](#creating-a-remote-repository)
+    - [Linking your local repo to the remote](#linking-your-local-repo-to-the-remote)
+    - [`git remote`](#git-remote)
+    - [`git push`](#git-push)
+  - [Collaboration using `git`](#collaboration-using-git)
 
 </details>
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
@@ -339,3 +345,65 @@ Remote repositories are what make `git` a powerful collaborative tool. Before we
 Create a new repository on GitHub by clicking the "+" button in the top-right corner.
 
 ![New repo button](images/newrepo.png)
+
+Next, choose a meaningful name and description for your repository and click the "Create repository" button.
+
+![Create repo](images/createrepo.png)
+
+### Linking your local repo to the remote
+
+GitHub has a great feature that gives you some commands for specific situations. In this case, we are going to run the commands in the "…or push an existing repository from the command line" section:
+
+![Push existing repo commands](images/pushexisting.png)
+
+There are two commands of interest here: `git remote` and `git push`.
+
+### `git remote`
+
+First, run the following command, substituting where appropriate:
+
+```sh
+git remote add origin https://github.com/[GitHub username]/[repo name].git
+```
+
+You can simply copy the link from the GitHub page if you wish. This command will tell your local `git` repository that the remote repository named `origin` is the GitHub repo you just created. `origin` is the standard name referring to the main remote of your project. You will only need to do this once per project, per remote (you usually only have one remote anyway).
+
+### `git push`
+
+`git push` is the other important command here. `git push` takes all of your local commits and sends them to the remote repository for storage. You will need to do this any time that you want to update the remote repository (which is usually pretty often).
+
+Run `git push`. You will likely see the following:
+
+```
+fatal: The current branch master has no upstream branch.
+To push the current branch and set the remote as upstream, use
+
+    git push --set-upstream origin master
+
+```
+
+Here, `git` is telling us that our local branch `master` has no "upstream" branch. An "upstream" branch is simply the remote branch which your local one will mirror.
+
+Follow `git`'s advice and run the command: `git push --set-upstream origin master`. You should see the following afterwards:
+
+```
+Enumerating objects: 7, done.
+Counting objects: 100% (7/7), done.
+Delta compression using up to 8 threads.
+Compressing objects: 100% (6/6), done.
+Writing objects: 100% (7/7), 2.09 KiB | 2.09 MiB/s, done.
+Total 7 (delta 0), reused 0 (delta 0)
+To https://github.com/ZekNikZ/git-workshop-demo.git
+ * [new branch]      master -> master
+Branch 'master' set up to track remote branch 'master' from 'origin'.
+```
+
+This says that your `master` branch is now set up to track the `master` branch in the `origin` remote.
+
+Open up GitHub to see if your code did indeed sync:
+
+![Initial push](images/initialpush.png)
+
+## Collaboration using `git`
+
+By far, the most useful feature of `git` is its focus on collaboration. 
