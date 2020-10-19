@@ -11,30 +11,34 @@ _Revised October 2020._
 <details>
 <summary>Table of Contents</summary>
 
-- [Motivation for `git`](#motivation-for-git)
-- [Key Terminology](#key-terminology)
-- [Setting up `git`](#setting-up-git)
-  - [Using the command-line](#using-the-command-line)
-    - [Installing for macOS](#installing-for-macos)
-    - [Installing for Windows](#installing-for-windows)
-    - [Intial setup](#intial-setup)
-  - [Using a `git` GUI](#using-a-git-gui)
-    - [Pick a GUI](#pick-a-gui)
-- [Creating a `git` repository](#creating-a-git-repository)
-- [Our first commit](#our-first-commit)
-- [Getting information before and after committing](#getting-information-before-and-after-committing)
-  - [`git diff`](#git-diff)
-  - [`git log`](#git-log)
-  - [`git show`](#git-show)
-- [Pushing to a remote](#pushing-to-a-remote)
-  - [Creating a remote repository](#creating-a-remote-repository)
-  - [Linking your local repo to the remote](#linking-your-local-repo-to-the-remote)
-  - [`git remote`](#git-remote)
-  - [`git push`](#git-push)
-- [Collaboration using `git`](#collaboration-using-git)
-- [Merging, Part I](#merging-part-i)
-  - [Simple Merge](#simple-merge)
-  - [Merge Conflict](#merge-conflict)
+- [`git` Workshop](#git-workshop)
+  - [Table of Contents](#table-of-contents)
+  - [Motivation for `git`](#motivation-for-git)
+  - [Key Terminology](#key-terminology)
+  - [Setting up `git`](#setting-up-git)
+    - [Using the command-line](#using-the-command-line)
+      - [Installing for macOS](#installing-for-macos)
+      - [Installing for Windows](#installing-for-windows)
+      - [Intial setup](#intial-setup)
+    - [Using a `git` GUI](#using-a-git-gui)
+      - [Pick a GUI](#pick-a-gui)
+  - [Creating a `git` repository](#creating-a-git-repository)
+  - [Our first commit](#our-first-commit)
+  - [Getting information before and after committing](#getting-information-before-and-after-committing)
+    - [`git diff`](#git-diff)
+    - [`git log`](#git-log)
+    - [`git show`](#git-show)
+  - [Pushing to a remote](#pushing-to-a-remote)
+    - [Creating a remote repository](#creating-a-remote-repository)
+    - [Linking your local repo to the remote](#linking-your-local-repo-to-the-remote)
+    - [`git remote`](#git-remote)
+    - [`git push`](#git-push)
+  - [Collaboration using `git`](#collaboration-using-git)
+  - [Merging, Part I](#merging-part-i)
+    - [Simple Merge](#simple-merge)
+    - [Merge Conflict](#merge-conflict)
+  - [Branching](#branching)
+  - [Merging, Part 2](#merging-part-2)
 
 </details>
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
@@ -523,7 +527,7 @@ hint: See the 'Note about fast-forwards' in 'git push --help' for details.
 
 Basically, `git` is complaining that another commit happened in the process of making our change and suggests to do a `git pull` before pushing again. In practice, it is highly recommended to _always_ pull before pushing for this exact reason.
 
-Do a `git pull` now and `git` will prompt you to **merge**. A merge takes the commits of one branch and applies them to another. In this case, we are merge the two sub-branches of `master` caused by us making separate commits. When the prompt opens, simply save the file `^X` in `nano` or `:wq` in `vim` to pull. Then you will be able to `git push`.
+Do a `git pull` now and `git` will prompt you to **merge**. A merge takes the commits of one branch and applies them to another. In this case, we are merge the two sub-branches of `master` caused by us making separate commits. When the prompt opens, simply save the file using `^X` in `nano` or `:wq` in `vim` to pull. Then you will be able to `git push`.
 
 Keep in mind that **merges are also commits**, so you will need to `git pull` in local repository 1.
 
@@ -581,3 +585,68 @@ test
 Next, stage, commit, and push. Congradulations! You have resolved your first merge conflict!
 
 **Note that it is perfectly fine to keep _both_ or _neither_ of the sides of the merge conflict. Also, it is possible to have multiple conflicts in the same file, so be careful to check the whole file thoroughly.**
+
+## Branching
+
+[Back to Table of Contents](#table-of-contents)
+
+Now that we have a foundational understanding of committing, merging, pushing, and pulling, we can start talking about **branching**. Branching is perhaps the most important thing to learn in `git` in terms of managing a complex project.
+
+Up until now, everything we have done has been on the `master` branch. Remember that a `git` project looks kind of like a tree, so the `master` branch essentially acts as the "trunk." All other branches are offshoots which add a specific subset of functionality to the project. In most cases, these other branches are `merge`d back into `master` after their work has been completed, but there are some instances that this may not be the case—two notable execptions being documentation branches and GitHub pages.
+
+First, run `git branch` to see all of branches that you have in your project. You should only see `* master`. The `*` indicates what branch you are currently on. In general, `git branch` will give you a list of the branches in your project _and_ tell you which one your `HEAD` is currently on—i.e., which one your current working directory is mirroring _and_ what branch a new commit will go onto.
+
+That last point is very important; any commits that you create will go onto the _currently checked-out branch_. When a branch is said to be **checked-out**, it just means that that branch is the one that is reflected in the working directory.
+
+Let's start our journey of branches by creating a new branch in local repository 1:
+
+- Run the command `git branch my-first-branch` to create a new branch called `my-first-branch`.
+- Run `git branch` again and you should see both `master` and `my-first-branch` in the list. However, `master` is still selected. So...
+- Run `git checkout my-first-branch` to switch to `my-first-branch`. You can then run `git branch` again to confirm the switch.
+- **Important note: this is not the usual way of creating branches. Since you almost always want to swap to the created branch when making a new one, use instead `git checkout -b branch-name` to create a new branch and immediately switch to it.**
+
+Now that we have a new branch, look around in your project folder. Do you see anything different? You shouldn't. Simply creating the branch does not do much; instead, the act of _committing_ to a branch is what starts the diverging trees of a `git` repository. So, let's make a commit!
+
+First, edit the file `test.txt` by adding a new line with your name. In my case, I added the line containing `Matthew` to the end of `test.txt`.
+
+Next, commit the change and run `git log`. The top of the output should now look like this:
+
+```
+commit 787c6717052fea0841a775b41b5b4dcc3b823f4a (HEAD -> my-first-branch)
+Author: Matthew McCaskill <mattrmccaskill@gmail.com>
+Date:   Sun Oct 18 22:39:34 2020 -0500
+
+    Added name to test file
+
+commit 766ef9954a46d6d7ae1e91d0ab8c460bfba7a4d7 (origin/master, master)
+Author: Matthew McCaskill <mattrmccaskill@gmail.com>
+Date:   Sun Oct 18 15:37:21 2020 -0500
+
+    Merge Conflict A
+
+commit cfda0bd18a103de63416ebabdb6e9c966bbc00b3
+Merge: d4fb836 b5ce628
+Author: Matthew McCaskill <mattrmccaskill@gmail.com>
+Date:   Sun Oct 18 15:27:15 2020 -0500
+
+    Merge branch 'master' of https://github.com/ZekNikZ/git-workshop-demo
+
+```
+
+Notice two things. First, `my-first-branch` is listed as the branch for our most recent commit. **This is because all commits go onto the currently checked-out branch**. Second, notice that `HEAD` is pointing to our new branch instead of `master`. This is because the working directory is described by `my-first-branch` now after the `git checkout` command.
+
+Now, let's push this new branch to our remote repository. Simply do a `git push` and look at the output:
+
+```
+fatal: The current branch my-first-branch has no upstream branch.
+To push the current branch and set the remote as upstream, use
+
+    git push --set-upstream origin my-first-branch
+
+```
+
+This is exactly the same problem that we had when we first tried to push `master` to the remote repository! So, as before, run the suggested command but note that from this point forward, you no longer need to specify `--set-upstream origin my-first-branch` for this branch. After doing this command once per branch, you can simply run `git push` to push the current branch.
+
+## Merging, Part 2
+
+[Back to Table of Contents](#table-of-contents)
