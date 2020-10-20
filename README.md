@@ -1,4 +1,4 @@
-# `git` Workshop
+# Git Workshop
 
 _This workshop was originally designed for use for Computing for Compassion. Feel free to use or reference for your own purposes!_
 
@@ -11,37 +11,47 @@ _Revised October 2020._
 <details>
 <summary>Table of Contents</summary>
 
-- [Motivation for `git`](#motivation-for-git)
-- [Key Terminology](#key-terminology)
-- [Setting up `git`](#setting-up-git)
-  - [Using the command-line](#using-the-command-line)
-    - [Installing for macOS](#installing-for-macos)
-    - [Installing for Windows](#installing-for-windows)
-    - [Intial setup](#intial-setup)
-  - [Using a `git` GUI](#using-a-git-gui)
-    - [Pick a GUI](#pick-a-gui)
-- [Creating a `git` repository](#creating-a-git-repository)
-- [Our first commit](#our-first-commit)
-- [Getting information before and after committing](#getting-information-before-and-after-committing)
-  - [`git diff`](#git-diff)
-  - [`git log`](#git-log)
-  - [`git show`](#git-show)
-- [Pushing to a remote](#pushing-to-a-remote)
-  - [Creating a remote repository](#creating-a-remote-repository)
-  - [Linking your local repo to the remote](#linking-your-local-repo-to-the-remote)
-  - [`git remote`](#git-remote)
-  - [`git push`](#git-push)
-- [Collaboration using `git`](#collaboration-using-git)
-- [Merging, Part I](#merging-part-i)
-  - [Simple Merge](#simple-merge)
-  - [Merge Conflict](#merge-conflict)
-- [Branching](#branching)
-- [Merging, Part 2](#merging-part-2)
+- [Git Workshop](#git-workshop)
+  - [Table of Contents](#table-of-contents)
+  - [Motivation for Git](#motivation-for-git)
+  - [Key Terminology](#key-terminology)
+  - [Setting up Git](#setting-up-git)
+    - [Using the command-line](#using-the-command-line)
+      - [Installing for macOS](#installing-for-macos)
+      - [Installing for Windows](#installing-for-windows)
+      - [Intial setup](#intial-setup)
+    - [Using a Git GUI](#using-a-git-gui)
+      - [Pick a GUI](#pick-a-gui)
+  - [Creating a Git repository](#creating-a-git-repository)
+  - [Our first commit](#our-first-commit)
+  - [Getting information before and after committing](#getting-information-before-and-after-committing)
+    - [`git diff`](#git-diff)
+    - [`git log`](#git-log)
+    - [`git show`](#git-show)
+  - [Pushing to a remote](#pushing-to-a-remote)
+    - [Creating a remote repository](#creating-a-remote-repository)
+    - [Linking your local repo to the remote](#linking-your-local-repo-to-the-remote)
+    - [`git remote`](#git-remote)
+    - [`git push`](#git-push)
+  - [Collaboration using Git](#collaboration-using-git)
+  - [Merging, Part I](#merging-part-i)
+    - [Simple Merge](#simple-merge)
+    - [Merge Conflict](#merge-conflict)
+  - [Branching](#branching)
+  - [Merging, Part 2](#merging-part-2)
+  - [Quick tip: Feature Branching](#quick-tip-feature-branching)
+  - [Intermediate: Using GitHub](#intermediate-using-github)
+  - [Intermediate: Undoing](#intermediate-undoing)
+  - [Intermediate: The `.gitignore` file](#intermediate-the-gitignore-file)
+  - [Intermediate: Stashing](#intermediate-stashing)
+  - [Advanced: Tagging](#advanced-tagging)
+  - [Advanced: Rebasing](#advanced-rebasing)
+  - [Advanced: Cherry-picking](#advanced-cherry-picking)
 
 </details>
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
-## Motivation for `git`
+## Motivation for Git
 
 [Back to Table of Contents](#table-of-contents)
 
@@ -53,18 +63,18 @@ TODO:
 
 A **Version Control System (VCS)** is a software tool that helps record changes to file(s) by recording individual modifications to files in an organized and easily-available way. It contains _all_ of the edits and history of each file.
 
-In `git`, the basic atomic unit of work is called a **commit**. Commits are _snapshots_ of your file structure and contents at a particular point in time (this is in contrast to other VCSs, where basic records of changes are based on _diffs_ (will be described later on)).
+In Git, the basic atomic unit of work is called a **commit**. Commits are _snapshots_ of your file structure and contents at a particular point in time (this is in contrast to other VCSs, where basic records of changes are based on _diffs_ (will be described later on)).
 
-Sets of commits are contained in **repositories** (**repos**, for short), which records the history of edits for a single project. There are two different types of repositories: **local repositories** and **remote repositories**. A local repository is the repository contained _on your local machine_. A remote repository, in contrast, is the history stored on an external machine, usually in the cloud somewhere (e.g., [GitHub](https://github.com/), [GitLab](http://gitlab.com/), [Bitbucket](https://bitbucket.org/)). Many local repositories (multiple computers, users, etc.) all link to usually one remote repository. For `git`, the local repository is stored in the `.git` folder in the project directory.
+Sets of commits are contained in **repositories** (**repos**, for short), which records the history of edits for a single project. There are two different types of repositories: **local repositories** and **remote repositories**. A local repository is the repository contained _on your local machine_. A remote repository, in contrast, is the history stored on an external machine, usually in the cloud somewhere (e.g., [GitHub](https://github.com/), [GitLab](http://gitlab.com/), [Bitbucket](https://bitbucket.org/)). Many local repositories (multiple computers, users, etc.) all link to usually one remote repository. For Git, the local repository is stored in the `.git` folder in the project directory.
 
-In `git`, there are four groups that a file (specifically, the changes to a file) can be in. The latter three are considered to be "tracked files" or, in other words, files that `git` is keeping tabs on.
+In Git, there are four groups that a file (specifically, the changes to a file) can be in. The latter three are considered to be "tracked files" or, in other words, files that Git is keeping tabs on.
 
-- **Untracked Files**: files that have not yet been recognized by `git` and whose version histories are not being tracked.
-- **Working Directory**: files that are being tracked by `git` but whose changes have not been staged yet.
+- **Untracked Files**: files that have not yet been recognized by Git and whose version histories are not being tracked.
+- **Working Directory**: files that are being tracked by Git but whose changes have not been staged yet.
 - **Staging Area (Index)**: file changes that are "staged" (ready to commit).
 - **History (Repository)**: committed file changes that are "permanent".
 
-## Setting up `git`
+## Setting up Git
 
 [Back to Table of Contents](#table-of-contents)
 
@@ -74,7 +84,7 @@ The command-line is a powerful tool and allows you to have full control over you
 
 #### Installing for macOS
 
-For macOS, I recommend installing `git` through `homebrew`:
+For macOS, I recommend installing Git through `homebrew`:
 
 1. If `homebrew` is not installed, open `Terminal.app` and copy-and-paste the following command:
 
@@ -103,7 +113,7 @@ git config --global user.email your.email.address@example.com
 
 **Important note: the email address used here _must_ match the one used in your GitHub or GitLab account. Otherwise, the commits that you author will not be linked to your account.**
 
-### Using a `git` GUI
+### Using a Git GUI
 
 GUIs are often preferred by beginners due to their simplicity and ease-of-use. However, they can be insufficient for common tasks.
 
@@ -111,11 +121,11 @@ GUIs are often preferred by beginners due to their simplicity and ease-of-use. H
 
 I personally recommend either [GitHub Desktop](https://desktop.github.com/) or [Sourcetree](https://www.sourcetreeapp.com/). Note that they were built to integrate with GitHub and Bitbucket, respectively, but can be used with either.
 
-## Creating a `git` repository
+## Creating a Git repository
 
 [Back to Table of Contents](#table-of-contents)
 
-The command `git init` will initialize a `git` repository in the directory that you are in. Thus, if you want to initialize a project from scratch, first make a new directory and then run this command inside of it. If you are creating a repository from existing sources, just enter the folder and run `git init`.
+The command `git init` will initialize a Git repository in the directory that you are in. Thus, if you want to initialize a project from scratch, first make a new directory and then run this command inside of it. If you are creating a repository from existing sources, just enter the folder and run `git init`.
 
 _Follow along!_
 
@@ -160,7 +170,7 @@ Untracked files:
 nothing added to commit but untracked files present (use "git add" to track)
 ```
 
-Notice how `git` saw that `hello-world.cpp` has been created and that it is under the "Untracked files" category. This means that the file exists but that `git` has not started keeping track of changes to it.
+Notice how Git saw that `hello-world.cpp` has been created and that it is under the "Untracked files" category. This means that the file exists but that Git has not started keeping track of changes to it.
 
 Next, run the command `git add hello-world.cpp`. This causes the file to be **staged**. Running `git status` again will show this:
 
@@ -240,7 +250,7 @@ index 15b85dd..9155c1e 100644
 
 First notice that there is no mention of `goodbye-planet.cpp` here. That is because `goodbye-planet.cpp` is **untracked**, so, correspondingly, there is no information to compare against.
 
-**`git` analyzes changes on a line-by-line basis**. This is seen by the fact that the line that we changed in `hello-world.cpp` is marked with a `-` and `+`. The `-` indicates the _previous_ version and the `+` indicates the _new_ version.
+**Git analyzes changes on a line-by-line basis**. This is seen by the fact that the line that we changed in `hello-world.cpp` is marked with a `-` and `+`. The `-` indicates the _previous_ version and the `+` indicates the _new_ version.
 
 ### `git log`
 
@@ -341,7 +351,7 @@ index 0000000..15b85dd
 
 [Back to Table of Contents](#table-of-contents)
 
-Remote repositories are what make `git` a powerful collaborative tool. Before we continue, we need to create a remote repository.
+Remote repositories are what make Git a powerful collaborative tool. Before we continue, we need to create a remote repository.
 
 ### Creating a remote repository
 
@@ -371,7 +381,7 @@ First, run the following command, substituting where appropriate:
 git remote add origin https://github.com/[GitHub username]/[repo name].git
 ```
 
-You can simply copy the link from the GitHub page if you wish. This command will tell your local `git` repository that the remote repository named `origin` is the GitHub repo you just created. `origin` is the standard name referring to the main remote of your project. You will only need to do this once per project, per remote (you usually only have one remote anyway).
+You can simply copy the link from the GitHub page if you wish. This command will tell your local Git repository that the remote repository named `origin` is the GitHub repo you just created. `origin` is the standard name referring to the main remote of your project. You will only need to do this once per project, per remote (you usually only have one remote anyway).
 
 ### `git push`
 
@@ -387,9 +397,9 @@ To push the current branch and set the remote as upstream, use
 
 ```
 
-Here, `git` is telling us that our local branch `master` has no "upstream" branch. An "upstream" branch is simply the remote branch which your local one will mirror.
+Here, Git is telling us that our local branch `master` has no "upstream" branch. An "upstream" branch is simply the remote branch which your local one will mirror.
 
-Follow `git`'s advice and run the command: `git push --set-upstream origin master`. You should see the following afterwards:
+Follow Git's advice and run the command: `git push --set-upstream origin master`. You should see the following afterwards:
 
 ```
 Enumerating objects: 7, done.
@@ -409,11 +419,11 @@ Open up GitHub to see if your code did indeed sync:
 
 ![Initial push](images/initialpush.png)
 
-## Collaboration using `git`
+## Collaboration using Git
 
 [Back to Table of Contents](#table-of-contents)
 
-By far, the most useful feature of `git` is its focus on collaboration. There are four main commands of interest here: `git clone`, `git push`, `git fetch`, and `git pull`.
+By far, the most useful feature of Git is its focus on collaboration. There are four main commands of interest here: `git clone`, `git push`, `git fetch`, and `git pull`.
 
 - `git clone` sets up a new local repository which will track a specified remote.
   - Note: this is functionally equivalent to the following:
@@ -460,7 +470,7 @@ From https://github.com/ZekNikZ/git-workshop-demo
    8168754..267dc33  master     -> origin/master
 ```
 
-This indicates that `git` pulled the commit from local repository 1 into your local repository 2. In fact, if you run `git fetch` again, you will not have any output this time. This is because there were no more changes to fetch.
+This indicates that Git pulled the commit from local repository 1 into your local repository 2. In fact, if you run `git fetch` again, you will not have any output this time. This is because there were no more changes to fetch.
 
 Next, run `git pull`. This will pull in the new file `text.txt` to your local repository 2. Here is the expected output from `git pull`:
 
@@ -523,9 +533,9 @@ hint: (e.g., 'git pull ...') before pushing again.
 hint: See the 'Note about fast-forwards' in 'git push --help' for details.
 ```
 
-Basically, `git` is complaining that another commit happened in the process of making our change and suggests to do a `git pull` before pushing again. In practice, it is highly recommended to _always_ pull before pushing for this exact reason.
+Basically, Git is complaining that another commit happened in the process of making our change and suggests to do a `git pull` before pushing again. In practice, it is highly recommended to _always_ pull before pushing for this exact reason.
 
-Do a `git pull` now and `git` will prompt you to **merge**. A merge takes the commits of one branch and applies them to another. In this case, we are merge the two sub-branches of `master` caused by us making separate commits. When the prompt opens, simply save the file using `^X` in `nano` or `:wq` in `vim` to pull. Then you will be able to `git push`.
+Do a `git pull` now and Git will prompt you to **merge**. A merge takes the commits of one branch and applies them to another. In this case, we are merge the two sub-branches of `master` caused by us making separate commits. When the prompt opens, simply save the file using `^X` in `nano` or `:wq` in `vim` to pull. Then you will be able to `git push`.
 
 Keep in mind that **merges are also commits**, so you will need to `git pull` in local repository 1.
 
@@ -588,9 +598,9 @@ Next, stage, commit, and push. Congradulations! You have resolved your first mer
 
 [Back to Table of Contents](#table-of-contents)
 
-Now that we have a foundational understanding of committing, merging, pushing, and pulling, we can start talking about **branching**. Branching is perhaps the most important thing to learn in `git` in terms of managing a complex project.
+Now that we have a foundational understanding of committing, merging, pushing, and pulling, we can start talking about **branching**. Branching is perhaps the most important thing to learn in Git in terms of managing a complex project.
 
-Up until now, everything we have done has been on the `master` branch. Remember that a `git` project looks kind of like a tree, so the `master` branch essentially acts as the "trunk." All other branches are offshoots which add a specific subset of functionality to the project. In most cases, these other branches are `merge`d back into `master` after their work has been completed, but there are some instances that this may not be the case—two notable execptions being documentation branches and GitHub pages.
+Up until now, everything we have done has been on the `master` branch. Remember that a Git project looks kind of like a tree, so the `master` branch essentially acts as the "trunk." All other branches are offshoots which add a specific subset of functionality to the project. In most cases, these other branches are `merge`d back into `master` after their work has been completed, but there are some instances that this may not be the case—two notable execptions being documentation branches and GitHub pages.
 
 First, run `git branch` to see all of branches that you have in your project. You should only see `* master`. The `*` indicates what branch you are currently on. In general, `git branch` will give you a list of the branches in your project _and_ tell you which one your `HEAD` is currently on—i.e., which one your current working directory is mirroring _and_ what branch a new commit will go onto.
 
@@ -603,7 +613,7 @@ Let's start our journey of branches by creating a new branch in local repository
 - Run `git checkout my-first-branch` to switch to `my-first-branch`. You can then run `git branch` again to confirm the switch.
 - **Important note: this is not the usual way of creating branches. Since you almost always want to swap to the created branch when making a new one, use instead `git checkout -b branch-name` to create a new branch and immediately switch to it.**
 
-Now that we have a new branch, look around in your project folder. Do you see anything different? You shouldn't. Simply creating the branch does not do much; instead, the act of _committing_ to a branch is what starts the diverging trees of a `git` repository. So, let's make a commit!
+Now that we have a new branch, look around in your project folder. Do you see anything different? You shouldn't. Simply creating the branch does not do much; instead, the act of _committing_ to a branch is what starts the diverging trees of a Git repository. So, let's make a commit!
 
 First, edit the file `test.txt` by adding a new line with your name. In my case, I added the line containing `Matthew` to the end of `test.txt`.
 
@@ -646,5 +656,90 @@ To push the current branch and set the remote as upstream, use
 This is exactly the same problem that we had when we first tried to push `master` to the remote repository! So, as before, run the suggested command but note that from this point forward, you no longer need to specify `--set-upstream origin my-first-branch` for this branch. After doing this command once per branch, you can simply run `git push` to push the current branch.
 
 ## Merging, Part 2
+
+[Back to Table of Contents](#table-of-contents)
+
+At this point, you should have local repository checked out on `my-first-branch` and local repository 2 checked out on `master`. What happens when we want to take the changes from our branch and _merge_ them back into `master`?
+
+First, in **local repository 2**, run `git fetch`. You should see output indicating that the Git repository knows about a new branch from `origin`. Now run `git pull` to update our `master` branch before merging.
+
+The `git merge <source branch>` command allows us to take the commits in a branch and apply them to another. Notice however, that the command only specifies one branch, the **source** branch. The **target** or **destination** branch is always that branch that you are currently on (currently have checked out). So, there are two cases we want to consider:
+
+- If we want to merge `my-first-branch` _into_ `master` (so that `master` gets any new changes from `my-first-branch`):
+  - Check out `master` if you haven't already.
+  - Run `git merge my-first-branch`
+- If we want to merge `master` _into_ `my-first-branch` (so that `my-first-branch` gets any new changes from `master`):
+  - Check out `my-first-branch` if you haven't already.
+  - Run `git merge master`
+
+In our case, we want to merge `my-first-branch` into `master`, so run `git merge my-first-branch`. You should get this output:
+
+```
+merge: my-first-branch - not something we can merge
+
+Did you mean this?
+	origin/my-first-branch
+```
+
+Since we never `git checkout`ed `my-first-branch` in local repository 2, it does not know about what commits were on that branch. So, the simple solution is to follow Git's advice and simply run `git merge origin/my-first-branch` instead. Now, if we check `git log`, we should see that `master` now has the commit of `my-first-branch`.
+
+```
+commit 787c6717052fea0841a775b41b5b4dcc3b823f4a (HEAD -> master, origin/my-first-branch, my-first-branch)
+Author: Matthew McCaskill <mattrmccaskill@gmail.com>
+Date:   Sun Oct 18 22:39:34 2020 -0500
+
+    Added name to test file
+
+commit 766ef9954a46d6d7ae1e91d0ab8c460bfba7a4d7 (origin/master, origin/HEAD)
+Author: Matthew McCaskill <mattrmccaskill@gmail.com>
+Date:   Sun Oct 18 15:37:21 2020 -0500
+
+    Merge Conflict A
+
+...
+```
+
+Notice that `origin/master` and `origin/HEAD` are still at the previous commit. This is because we have not pushed this update to the repository tree. Go ahead and `git push` now.
+
+## Quick tip: Feature Branching
+
+There two several primary methods to branching worth mentioning at this point in time:
+
+1. User branching: each branch represents the work of a single _user_ (bad)
+2. Feature branching: each branch represents the work of a single _feature_ (good)
+
+Since Git is meant to be collaborative, it makes sense why user branching is such a bad idea. It implies both one user _only_ should be working on a single branch at a time and that they should a user shoudl work on only _one_ branch at a time. In practice, this is obviously not the case, but I wanted to mention it as something to _not_ do.
+
+Feature branching is the primary purpose of branching in smaller collaborative projects. A single, isolated feature that is developed independently of any other features is put on a branch by itself. This allows development to be cohesive and have low coupling in development.
+
+For an example of a feature branch, consider a platforming game (like Mario). I may create a separate branch to add a new enemy to the game (such as a Goomba). Enemies are independant of every other feature in the game, so can be developed independantly.
+
+For a list of a few more different types of branching methods, check out [this article](https://backlog.com/git-tutorial/branching-workflows/).
+
+## Intermediate: Using GitHub
+
+[Back to Table of Contents](#table-of-contents)
+
+## Intermediate: Undoing
+
+[Back to Table of Contents](#table-of-contents)
+
+## Intermediate: The `.gitignore` file
+
+[Back to Table of Contents](#table-of-contents)
+
+## Intermediate: Stashing
+
+[Back to Table of Contents](#table-of-contents)
+
+## Advanced: Tagging
+
+[Back to Table of Contents](#table-of-contents)
+
+## Advanced: Rebasing
+
+[Back to Table of Contents](#table-of-contents)
+
+## Advanced: Cherry-picking
 
 [Back to Table of Contents](#table-of-contents)
