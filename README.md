@@ -865,13 +865,97 @@ To finish out this section, first, resolve the merge conflict any way that you w
 
 Next, run `git stash list`. Notice that because there was a merge conflict, the change was not removed from the stash (in this case, `git stash pop` actually behaved like `git stash apply`). So, to fix this, run `git stash drop` to clean up our stash and celebrate!
 
+Run `git push` in **local repository 2** and `git pull` in both local repositories before moving on to the next section.
+
 ## Advanced: Tagging
 
 [Back to Table of Contents](#table-of-contents)
 
+To understand the point of tagging, consider a software project that has several versions over its lifetime. In the latest release (version 2.0), the developers discoved a bug that was not present in version 1.0. So, they want to reset the offending file to the 1.0 version. However, to do so, they would need to know the commit hash of version 1.0. Therefore, unless they have someone on their team with photographic memory, then need to look through the entire `git log` or GitHub tree to file the correct commit. Wouldn't it be nice if we could "name" certain commits so that we can easily reference them later?
+
+Well, this is where **tagging** comes into play. We can give commits certain "tags" that act as pointers to that specific commit. Let's try it!
+
+Create a new file called `tagging.txt` with the contents `version 1.0`. Commit this change.
+
+Now, edit the file to now say `version 2.0`. Commit this change as well. Now, you should have a `git log` similar to the following:
+
+```
+commit 995718f255e1729f0d5c4d0685179d90c290adce (HEAD -> master)
+Author: Matthew McCaskill <mattrmccaskill@gmail.com>
+Date:   Mon Oct 19 23:51:38 2020 -0500
+
+    Tagging file: v2.0
+
+commit f43a21d45b77b7bc2f6109ffebef0703e316eb8e
+Author: Matthew McCaskill <mattrmccaskill@gmail.com>
+Date:   Mon Oct 19 23:51:19 2020 -0500
+
+    Tagging file: v1.0
+
+```
+
+Run `git tag version1.0 <1.0-hash>` where `1.0-hash` is the hash of the version 1 commit (in my case, `f43a21d45b77b7bc2f6109ffebef0703e316eb8e`). Remember you can just use the first 7 characters if you want, so I would run `git tag version1.0 f43a21d`. This will tag the commit with the tag `version1.0`.
+
+Now run `git tag version2.0`. Notice that we did not include a commit hash here. By default, Git will tag the `HEAD` commit. If we now check `git log`, that is indeed what happened:
+
+```
+commit 995718f255e1729f0d5c4d0685179d90c290adce (HEAD -> master, tag: version2.0)
+Author: Matthew McCaskill <mattrmccaskill@gmail.com>
+Date:   Mon Oct 19 23:51:38 2020 -0500
+
+    Tagging file: v2.0
+
+commit f43a21d45b77b7bc2f6109ffebef0703e316eb8e (tag: version1.0)
+Author: Matthew McCaskill <mattrmccaskill@gmail.com>
+Date:   Mon Oct 19 23:51:19 2020 -0500
+
+    Tagging file: v1.0
+
+```
+
+Next, let's try resetting our `tagging.txt` file to the version that it was in `version1.0`. To do this, run `git checkout version1.0 tagging.txt` (see [the Undoing section](#intermediate-undoing) for more information).
+
+If we now run `git status`, we see that file has been changed. Opening up the file will show this change. Commit this change and tag the commit as `version3.0`. For me, that looked like this:
+
+```sh
+git add .
+git commit -m "Tagging file: v3.0"
+git tag version3.0
+```
+
+Finally, to practice our reverting skills and tagging skills, let's revert the latest commit. Run `git revert version3.0`. This should open up a revert commit message. Simply save the message and close the file.
+
+Now, this is a very simple example, but do note that in practice, tagging can be a very valuable tool when it is hard to find specific versions of files.
+
+Run `git push` in **local repository 2** and `git pull` in both local repositories before moving on to the next section.
+
 ## Advanced: Rebasing
 
 [Back to Table of Contents](#table-of-contents)
+
+As you can probably image, our Git trees can become very convoluted very quickly. Especially when we create a bunch of feature branches, it gets pretty complicated to look at. Here is an example from a project I recently worked on:
+
+![Big Tree](images/bigtree.png)
+
+One way that we can clean up this tree is through something called **rebasing**. There is one primary use case where this is helpful.
+
+Consider the instance when you are working on a pure feature branch (i.e., a branch that simply modifies `master` and doesn't merge in any other branches), as such:
+
+![Start](images/starting.png)
+
+Let's say that you want some new changes off of `master`. The conventional way of doing this with `git merge` would produce a tree like this, after merging back into master.
+
+![Merge](images/mergebranch.png)
+
+This, of course, is very complicated. What **rebasing** allows us to do to change the intial branching point of the feature branch by deleting the commits and reapplying them starting from a different point in time. This will produce the same effect, but will change the tree to look like this, after merging back into master:
+
+![Rebase](images/rebase.png)
+
+The important thing to remember is that rebasing _modifies the structure of the tree by reapplying commits_.
+
+To perform a rebase, first check out the branch to rebase (`git checkout feature`) and then run `git rebase <object>`. `object` can be a branch name, commit hash, tag, etc. So, for example, to perform the rebase seen above, you could run `git rebase master` or `git rebase C`.
+
+**Note: as with `git reset`, _never_ rebase already public history (i.e., don't rebase when someone is already using your code**!
 
 ## Advanced: Cherry-picking
 
