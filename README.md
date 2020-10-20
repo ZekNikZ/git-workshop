@@ -11,40 +11,46 @@ _Revised October 2020._
 <details>
 <summary>Table of Contents</summary>
 
-- [Motivation for Git](#motivation-for-git)
-- [Key Terminology](#key-terminology)
-- [Setting up Git](#setting-up-git)
-  - [Using the command-line](#using-the-command-line)
-    - [Installing for macOS](#installing-for-macos)
-    - [Installing for Windows](#installing-for-windows)
-    - [Intial setup](#intial-setup)
-  - [Using a Git GUI](#using-a-git-gui)
-    - [Pick a GUI](#pick-a-gui)
-- [Creating a Git repository](#creating-a-git-repository)
-- [Our first commit](#our-first-commit)
-- [Getting information before and after committing](#getting-information-before-and-after-committing)
-  - [`git diff`](#git-diff)
-  - [`git log`](#git-log)
-  - [`git show`](#git-show)
-- [Pushing to a remote](#pushing-to-a-remote)
-  - [Creating a remote repository](#creating-a-remote-repository)
-  - [Linking your local repo to the remote](#linking-your-local-repo-to-the-remote)
-  - [`git remote`](#git-remote)
-  - [`git push`](#git-push)
-- [Collaboration using Git](#collaboration-using-git)
-- [Merging, Part I](#merging-part-i)
-  - [Simple Merge](#simple-merge)
-  - [Merge Conflict](#merge-conflict)
-- [Branching](#branching)
-- [Merging, Part 2](#merging-part-2)
-- [Quick tip: Feature Branching](#quick-tip-feature-branching)
-- [Intermediate: Using GitHub](#intermediate-using-github)
-- [Intermediate: Undoing](#intermediate-undoing)
-- [Intermediate: The `.gitignore` file](#intermediate-the-gitignore-file)
-- [Intermediate: Stashing](#intermediate-stashing)
-- [Advanced: Tagging](#advanced-tagging)
-- [Advanced: Rebasing](#advanced-rebasing)
-- [Advanced: Cherry-picking](#advanced-cherry-picking)
+- [Git Workshop](#git-workshop)
+  - [Table of Contents](#table-of-contents)
+  - [Motivation for Git](#motivation-for-git)
+  - [Key Terminology](#key-terminology)
+  - [Setting up Git](#setting-up-git)
+    - [Using the command-line](#using-the-command-line)
+      - [Installing for macOS](#installing-for-macos)
+      - [Installing for Windows](#installing-for-windows)
+      - [Intial setup](#intial-setup)
+    - [Using a Git GUI](#using-a-git-gui)
+      - [Pick a GUI](#pick-a-gui)
+  - [Creating a Git repository](#creating-a-git-repository)
+  - [Our first commit](#our-first-commit)
+  - [Getting information before and after committing](#getting-information-before-and-after-committing)
+    - [`git diff`](#git-diff)
+    - [`git log`](#git-log)
+    - [`git show`](#git-show)
+  - [Pushing to a remote](#pushing-to-a-remote)
+    - [Creating a remote repository](#creating-a-remote-repository)
+    - [Linking your local repo to the remote](#linking-your-local-repo-to-the-remote)
+    - [`git remote`](#git-remote)
+    - [`git push`](#git-push)
+  - [Collaboration using Git](#collaboration-using-git)
+  - [Merging, Part I](#merging-part-i)
+    - [Simple Merge](#simple-merge)
+    - [Merge Conflict](#merge-conflict)
+  - [Branching](#branching)
+  - [Merging, Part 2](#merging-part-2)
+    - [Quick tip: Feature Branching](#quick-tip-feature-branching)
+  - [Intermediate: Undoing](#intermediate-undoing)
+  - [Intermediate: The `.gitignore` file](#intermediate-the-gitignore-file)
+  - [Intermediate: Stashing](#intermediate-stashing)
+  - [Advanced: Tagging](#advanced-tagging)
+  - [Advanced: Rebasing](#advanced-rebasing)
+  - [Advanced: Cherry-picking](#advanced-cherry-picking)
+  - [Intermediate: Using GitHub](#intermediate-using-github)
+    - [Issues](#issues)
+    - [Pull Requests](#pull-requests)
+    - [The `README.md` file](#the-readmemd-file)
+    - [GitHub Profile `README`](#github-profile-readme)
 
 </details>
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
@@ -699,7 +705,7 @@ Date:   Sun Oct 18 15:37:21 2020 -0500
 
 Notice that `origin/master` and `origin/HEAD` are still at the previous commit. This is because we have not pushed this update to the repository tree. Go ahead and `git push` now.
 
-## Quick tip: Feature Branching
+### Quick tip: Feature Branching
 
 There two several primary methods to branching worth mentioning at this point in time:
 
@@ -714,21 +720,150 @@ For an example of a feature branch, consider a platforming game (like Mario). I 
 
 For a list of a few more different types of branching methods, check out [this article](https://backlog.com/git-tutorial/branching-workflows/).
 
-## Intermediate: Using GitHub
-
-[Back to Table of Contents](#table-of-contents)
-
 ## Intermediate: Undoing
 
 [Back to Table of Contents](#table-of-contents)
+
+Since undoing is completely situation-dependent and rare, what follows is a simple quick-reference sheet for common "undo" operations in different contexts:
+
+- **Un-staging a file.**
+  - `git rm --cached <file>`: un-stage a file
+- **Undoing changes _before_ committing.**
+  - `git checkout <file>`: reset file to `HEAD`
+  - `git checkout HEAD`: reset working directory to `HEAD`
+  - `git checkout <object> [file]`: reset working directory or `file` to `object` (commit, branch, etc.)
+- **Undoing changes _after_ committing but _before_ pushing.**
+  - Use these forms if you want to undo changes _and nobody else has them yet (you have not pushed_.
+  - `git reset <object>`: reset `HEAD` and current branch to `object` (commit, branch, etc.) but put all changes since that commit into working directory.
+  - `git reset --hard <object>`: completely reset working directory and history to `object` (commit, branch, etc.) without keeping any history of later commits
+- **Undoing changes _affer_ committing but _after_ pushing.**
+  - Use these forms if you want to undo changes _that have already been pushed_.
+  - `git revert HEAD~<#>`: create commit undoing `#` of commits ago
+  - `git revert <object>`: create commit undoing `object` (commit, branch tip, etc.)
 
 ## Intermediate: The `.gitignore` file
 
 [Back to Table of Contents](#table-of-contents)
 
+If you create a `.gitignore` file in the root directory of your project, you can specify which directories and files that you want Git to completely ignore and not track at all. There are many reasons to do this:
+
+- Project configuration files for IDEs
+  - If you exclude project configuration files, contributors can use any IDEs that they want without conflicts.
+- Secret files (secret keys, passwords, etc.)
+  - Remember, Git repositories are on the internet and are therefore public! Don't release your secrets!
+- Build files
+  - Any build files (artifacts, executables, etc.), in general, should NOT be committed as they can be easily re-generated by anyone who clones your project.
+
+Basic syntax for a `.gitignore` file is as follows:
+
+```gitignore
+# This is a comment, Git will ignore this line
+
+# Ignore specific files
+specificFile.txt
+data/specificFile.csv
+
+# Globbing (wildcards)
+# * - 0 or more characters
+# ? - 0 or 1 character
+# [a-z] - any character in this range
+*.secret
+test?.txt
+names_that_start_with_[a-z].csv
+
+# Ignore directory called "build"
+build/
+
+# Ignore files or directories called "build"
+build
+
+# Ignore everything in folder
+build/**
+
+# Match all "test.txt" files inside of a folder
+**/test.txt
+
+# Match all "bar" directories inside of a "foo" directory
+**/foo/bar/
+```
+
+View [the manual](https://git-scm.com/docs/gitignore) for more information.
+
+**I highly recommend the website called gitignore.io for generating `.gitignore` files. You can specify the programming language and IDEs that you and your team are using and it will dynamically generate a simple `.gitignore` file!**
+
 ## Intermediate: Stashing
 
 [Back to Table of Contents](#table-of-contents)
+
+Here's a good theoretical question: what happens when I try to `git pull` when there are some local changes (not committed) which conflict with the pulled changes? Let's find out!
+
+Before starting, tn both **local directory 1** and **local directory 2**, make sure you are on `master`. Do you remember how? `git checkout master`. Also do a `git pull` for good measure.
+
+In **local directory 1**, edit the file `test.txt` by _changing_ your first name to your last name.
+
+Commit and push this change.
+
+In **local directory 2**, edit the file `test.txt` by _adding_ your last name after your first name.
+
+Now, try to `git pull`. You should get an error message like this:
+
+```
+remote: Enumerating objects: 5, done.
+remote: Counting objects: 100% (5/5), done.
+remote: Compressing objects: 100% (1/1), done.
+remote: Total 3 (delta 1), reused 3 (delta 1), pack-reused 0
+Unpacking objects: 100% (3/3), done.
+From https://github.com/ZekNikZ/git-workshop-demo
+   787c671..49f2289  master     -> origin/master
+Updating 787c671..49f2289
+error: Your local changes to the following files would be overwritten by merge:
+	test.txt
+Please commit your changes or stash them before you merge.
+Aborting
+```
+
+Git is telling us that the changes that we are trying to pull would overwrite some local changes that we have made and suggests two options: commiting those changes or **stashing the changes**:
+
+- If we want to make those changes immediately and resolve a merge conflict later, commit your changes then `git pull`.
+- If we want to save those changes for later and apply them on top of the changes on `origin/master`, then we will use **stashing**.
+
+**Note that you can stash files whenever you want, this is just a common use-case**.
+
+The most imporant thing to know about stashing is that the "stash" is a **stack**. Recall that a stack is a data structure that is LIFO (last in is first out). In practice, it is unlikely that you will use the stack nature of stashing. If you don't know what a stack is, don't worry about it; the important thing to know is that you must pull things out of the stash _in reverse order_ that you put them in.
+
+To _stash_ (push) some changes, run `git stash push`. You can optionally specify which files to stash by running `git stash push file1 file2...`. This command will temporarily save the changes to the specified files in the "stash" and reset the corresponding files to their state in `HEAD`.
+
+To _unstash_ (pop) some changes, run `git stash pop`. This will apply the stored changes to the working directory and remove the changes from the stash (unless there are conflict). If you don't want to remove the changes from the stash, you could instead do `git stash apply` and then `git stash drop` to remove it from the stash later.
+
+To see what is in the stash, run `git stash list`. To see a specific stash entry, run `git stash show stash@{<#>}`.
+
+Let's try it now. First, still in **local directory 2**, run `git stash push`. This will push our local changes to the stash and allow us to pull. Go ahead and run `git pull` now too and you should see it being successful this time.
+
+Run `git stash list` to see your current stage stack. You should see something like this:
+
+```
+stash@{0}: WIP on master: 787c671 Added name to test file
+```
+
+Now, if we run `git stash show stash@{0}`, we can see exactly what happened in this stashed change:
+
+```
+ test.txt | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+```
+
+Here, we see that 1 line was inserted and 1 line was deleted (i.e., 1 line was changed) in the file `test.txt`. Now, run `git stash pop` to apply the stashed changes to the working directory. But wait! You should see this message now:
+
+```
+Auto-merging test.txt
+CONFLICT (content): Merge conflict in test.txt
+```
+
+There is a merge conflict! Why? Because we modified the same line. So, in this case, we didn't avoid a merge conflict but rather made it happen later on in the chain. If you can't think of a situation where you would want to wait to apply a change, don't worry, it will come up eventually. But, when that does, you now know how to deal with it!
+
+To finish out this section, first, resolve the merge conflict any way that you want. Remember to stage and commit!
+
+Next, run `git stash list`. Notice that because there was a merge conflict, the change was not removed from the stash (in this case, `git stash pop` actually behaved like `git stash apply`). So, to fix this, run `git stash drop` to clean up our stash and celebrate!
 
 ## Advanced: Tagging
 
@@ -741,3 +876,15 @@ For a list of a few more different types of branching methods, check out [this a
 ## Advanced: Cherry-picking
 
 [Back to Table of Contents](#table-of-contents)
+
+## Intermediate: Using GitHub
+
+[Back to Table of Contents](#table-of-contents)
+
+### Issues
+
+### Pull Requests
+
+### The `README.md` file
+
+### GitHub Profile `README`
