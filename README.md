@@ -11,44 +11,46 @@ _Revised October 2020._
 <details>
 <summary>Table of Contents</summary>
 
-- [Motivation for Git](#motivation-for-git)
-- [Key Terminology](#key-terminology)
-- [Setting up Git](#setting-up-git)
-  - [Using the command-line](#using-the-command-line)
-    - [Installing for macOS](#installing-for-macos)
-    - [Installing for Windows](#installing-for-windows)
-    - [Intial setup](#intial-setup)
-  - [Using a Git GUI](#using-a-git-gui)
-    - [Pick a GUI](#pick-a-gui)
-- [Creating a Git repository](#creating-a-git-repository)
-- [Our first commit](#our-first-commit)
-- [Getting information before and after committing](#getting-information-before-and-after-committing)
-  - [`git diff`](#git-diff)
-  - [`git log`](#git-log)
-  - [`git show`](#git-show)
-- [Pushing to a remote](#pushing-to-a-remote)
-  - [Creating a remote repository](#creating-a-remote-repository)
-  - [Linking your local repo to the remote](#linking-your-local-repo-to-the-remote)
-  - [`git remote`](#git-remote)
-  - [`git push`](#git-push)
-- [Collaboration using Git](#collaboration-using-git)
-- [Merging, Part I](#merging-part-i)
-  - [Simple Merge](#simple-merge)
-  - [Merge Conflict](#merge-conflict)
-- [Branching](#branching)
-- [Merging, Part 2](#merging-part-2)
-  - [Quick tip: Feature Branching](#quick-tip-feature-branching)
-- [Intermediate: Undoing](#intermediate-undoing)
-- [Intermediate: The `.gitignore` file](#intermediate-the-gitignore-file)
-- [Intermediate: Stashing](#intermediate-stashing)
-- [Advanced: Tagging](#advanced-tagging)
-- [Advanced: Rebasing](#advanced-rebasing)
-- [Advanced: Cherry-picking](#advanced-cherry-picking)
-- [Intermediate: Using GitHub](#intermediate-using-github)
-  - [Issues](#issues)
-  - [Pull Requests](#pull-requests)
-  - [The `README.md` file](#the-readmemd-file)
-  - [GitHub Profile `README`](#github-profile-readme)
+- [Git Workshop](#git-workshop)
+  - [Table of Contents](#table-of-contents)
+  - [Motivation for Git](#motivation-for-git)
+  - [Key Terminology](#key-terminology)
+  - [Setting up Git](#setting-up-git)
+    - [Using the command-line](#using-the-command-line)
+      - [Installing for macOS](#installing-for-macos)
+      - [Installing for Windows](#installing-for-windows)
+      - [Intial setup](#intial-setup)
+    - [Using a Git GUI](#using-a-git-gui)
+      - [Pick a GUI](#pick-a-gui)
+  - [Creating a Git repository](#creating-a-git-repository)
+  - [Our first commit](#our-first-commit)
+  - [Getting information before and after committing](#getting-information-before-and-after-committing)
+    - [`git diff`](#git-diff)
+    - [`git log`](#git-log)
+    - [`git show`](#git-show)
+  - [Pushing to a remote](#pushing-to-a-remote)
+    - [Creating a remote repository](#creating-a-remote-repository)
+    - [Linking your local repo to the remote](#linking-your-local-repo-to-the-remote)
+    - [`git remote`](#git-remote)
+    - [`git push`](#git-push)
+  - [Collaboration using Git](#collaboration-using-git)
+  - [Merging, Part I](#merging-part-i)
+    - [Simple Merge](#simple-merge)
+    - [Merge Conflict](#merge-conflict)
+  - [Branching](#branching)
+  - [Merging, Part 2](#merging-part-2)
+    - [Quick tip: Feature Branching](#quick-tip-feature-branching)
+  - [Intermediate: Undoing](#intermediate-undoing)
+  - [Intermediate: The `.gitignore` file](#intermediate-the-gitignore-file)
+  - [Intermediate: Stashing](#intermediate-stashing)
+  - [Advanced: Tagging](#advanced-tagging)
+  - [Advanced: Rebasing](#advanced-rebasing)
+  - [Advanced: Cherry-picking](#advanced-cherry-picking)
+  - [Intermediate: Using GitHub](#intermediate-using-github)
+    - [Issues](#issues)
+    - [Pull Requests](#pull-requests)
+    - [The `README.md` file](#the-readmemd-file)
+    - [GitHub Profile `README`](#github-profile-readme)
 
 </details>
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
@@ -710,7 +712,7 @@ There two several primary methods to branching worth mentioning at this point in
 1. User branching: each branch represents the work of a single _user_ (bad)
 2. Feature branching: each branch represents the work of a single _feature_ (good)
 
-Since Git is meant to be collaborative, it makes sense why user branching is such a bad idea. It implies both one user _only_ should be working on a single branch at a time and that they should a user shoudl work on only _one_ branch at a time. In practice, this is obviously not the case, but I wanted to mention it as something to _not_ do.
+Since Git is meant to be collaborative, it makes sense why user branching is such a bad idea. It implies both one user _only_ should be working on a single branch at a time and that they should a user should work on only _one_ branch at a time. In practice, this is obviously not the case, but I wanted to mention it as something to _not_ do.
 
 Feature branching is the primary purpose of branching in smaller collaborative projects. A single, isolated feature that is developed independently of any other features is put on a branch by itself. This allows development to be cohesive and have low coupling in development.
 
@@ -787,7 +789,7 @@ build/**
 
 View [the manual](https://git-scm.com/docs/gitignore) for more information.
 
-**I highly recommend the website called gitignore.io for generating `.gitignore` files. You can specify the programming language and IDEs that you and your team are using and it will dynamically generate a simple `.gitignore` file!**
+**I highly recommend the website called [gitignore.io](https://gitignore.io/) for generating `.gitignore` files. You can specify the programming language and IDEs that you and your team are using and it will dynamically generate a simple `.gitignore` file!**
 
 ## Intermediate: Stashing
 
